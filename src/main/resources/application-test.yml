@@ -1,0 +1,10 @@
+# Datasource 설정
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@shoppingmall_high?TNS_ADMIN=/Users/kimsoohyun/Wallet_ShoppingMall
+    username: ADMIN
+    password: a125354861A!
+    driver-class-name: oracle.jdbc.OracleDriver
+  # H2 데이터베이스 방언 설정
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
