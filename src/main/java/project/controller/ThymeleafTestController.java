@@ -13,6 +13,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/thymeleaf")
 public class ThymeleafTestController {
+
     @GetMapping(value = "/test01")
     public String thymeleafTest01(Model model) {
         model.addAttribute("data", "타임리프 공부 테스트입니다.");
