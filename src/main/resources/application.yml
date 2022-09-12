@@ -9,6 +9,13 @@ spring:
     username: ADMIN
     password: a125354861A!
     driver-class-name: oracle.jdbc.OracleDriver
+  #Live Reload 기능 활성화
+  devtools:
+    livereload:
+      enabled: true
+  #Thymeleaf cache 사용 중지
+  thymeleaf:
+    cache: false
 
   jpa:
     hibernate:
