@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 public class Item {
-
     @Id
     @Column(name = "item_id")
     @GeneratedValue

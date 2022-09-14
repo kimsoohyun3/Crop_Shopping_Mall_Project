@@ -5,6 +5,7 @@ spring:
     username: ADMIN
     password: a125354861A!
     driver-class-name: oracle.jdbc.OracleDriver
+
   # H2 데이터베이스 방언 설정
   jpa:
     database-platform: org.hibernate.dialect.Oracle10gDialect

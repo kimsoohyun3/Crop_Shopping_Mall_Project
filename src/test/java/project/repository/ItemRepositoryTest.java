@@ -18,7 +18,6 @@ import java.util.List;
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.yml")
 class ItemRepositoryTest {
-
     @Autowired
     ItemRepository itemRepository;
     @Autowired

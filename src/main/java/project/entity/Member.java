@@ -14,7 +14,6 @@ import javax.persistence.*;
 @Setter
 @ToString
 public class Member {
-
     @Id
     @Column(name = "member_id")
     @GeneratedValue

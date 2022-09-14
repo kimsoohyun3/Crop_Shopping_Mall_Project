@@ -10,7 +10,6 @@ import project.repository.MemberRepository;
 @Transactional
 @RequiredArgsConstructor
 public class MemberService {
-
     private final MemberRepository memberRepository;
 
     public Member saveMember(Member member) {

@@ -8,7 +8,6 @@ import project.entity.Item;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
-
     List<Item> findByItemNm(String itemNm);
 
     List<Item> findByItemNmOrItemDetail(String itemNm, String itemDetail);

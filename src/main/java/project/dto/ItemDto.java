@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ItemDto {
-
     private Long id;
 
     private String itemNm;
