@@ -8,4 +8,6 @@ spring:
 
   # H2 데이터베이스 방언 설정
   jpa:
+    hibernate:
+      ddl-auto: create
     database-platform: org.hibernate.dialect.Oracle10gDialect
