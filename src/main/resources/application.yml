@@ -41,7 +41,7 @@ spring:
       #요청당 최대 파일 크기
       max-request-size: 100MB
 
-  #상품 이미지 업로드 경로
-  itemImgLocation=/Users/kimsoohyun/Shopping_Mall_Project/item
-  #리소스 업로드 경로
-  uploadPath=file:///Users/kimsoohyun/Shopping_Mall_Project/
+#상품 이미지 업로드 경로
+itemImgLocation: /Users/kimsoohyun/Shopping_Mall_Project/item
+#리소스 업로드 경로
+uploadPath:file: ///Users/kimsoohyun/Shopping_Mall_Project/
