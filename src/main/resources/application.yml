@@ -44,4 +44,4 @@ spring:
 #상품 이미지 업로드 경로
 itemImgLocation: /Users/kimsoohyun/Shopping_Mall_Project/item
 #리소스 업로드 경로
-uploadPath:file: ///Users/kimsoohyun/Shopping_Mall_Project/
+uploadPath: file:///Users/kimsoohyun/Shopping_Mall_Project/

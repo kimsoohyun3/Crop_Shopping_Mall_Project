@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 public class ItemImg extends BaseEntity{
+    //PK
     @Id
     @Column(name = "item_img_id")
     @GeneratedValue

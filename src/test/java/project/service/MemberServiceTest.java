@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-@Transactional
+@Transactional //테스트 클래스에 트랜잭션 어노테이션이 붙으면 테스트 실행 후 롤백된다.
 @TestPropertySource(locations = "classpath:application-test.yml")
 class MemberServiceTest {
 

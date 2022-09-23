@@ -24,6 +24,8 @@ public class MemberControllerTest {
     @Autowired
     private MemberService memberService;
 
+    //MockMvc 클래스는 실제 객체와 비슷하지만 테스트에 필요한 기능만 가지는 가짜 객체다.
+    //MockMvc 객체를 이용하면 웹 브라우저에서 요청을 하는 것처럼 테스트 할 수 있다.
     @Autowired
     private MockMvc mockMvc;
 

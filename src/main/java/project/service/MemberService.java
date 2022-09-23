@@ -13,9 +13,10 @@ import project.repository.MemberRepository;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MemberService implements UserDetailsService {
+public class MemberService implements UserDetailsService { //UserDetailsService 인터페이스 implements
     private final MemberRepository memberRepository;
 
+    //회원 가입
     public Member saveMember(Member member) {
         validateDuplicateMember(member);
         return memberRepository.save(member);
@@ -28,7 +29,7 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-
+    //로그인
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = memberRepository.findByEmail(email);
