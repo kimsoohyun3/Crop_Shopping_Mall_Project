@@ -2,12 +2,14 @@ package project.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 import project.entity.Item;
 
 import java.util.List;
 
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface ItemRepository extends JpaRepository<Item, Long>,
+        QuerydslPredicateExecutor<Item>, ItemRepositoryCustom { // 2. QuerydslPredicateExecutor, 메소드에 붙은 predicate의 의미 : 이 조건이 맞다고 판단하는 근거를 함수로 제공한다는 의미
     //상품명
     List<Item> findByItemNm(String itemNm);
 

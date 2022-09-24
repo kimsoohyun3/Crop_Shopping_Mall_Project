@@ -1,11 +1,14 @@
 package project.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import project.dto.ItemFormDto;
 import project.dto.ItemImgDto;
+import project.dto.ItemSearchDto;
 import project.entity.Item;
 import project.entity.ItemImg;
 import project.repository.ItemImgRepository;
@@ -47,7 +50,8 @@ public class ItemService {
     }
 
     //상품 단건 조회
-    @Transactional(readOnly = true) //전체 서비스에 트랜잭션을 걸어두고 해당 서비스에 트랜잭션을 또 걸고 readonly를 true로 해주면 JPA가 더티체킹을 수행하지 않아 성능이 향상된다.
+    @Transactional(readOnly = true)
+    //전체 서비스에 트랜잭션을 걸어두고 해당 서비스에 트랜잭션을 또 걸고 readonly를 true로 해주면 JPA가 더티체킹을 수행하지 않아 성능이 향상된다.
     public ItemFormDto getItemDtl(Long itemId) {
         //매개변수로 전달된 itemId로 등록된 이미지 리스트 정보 가져오기.
         List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
@@ -81,5 +85,11 @@ public class ItemService {
         }
 
         return item.getId();
+    }
+
+    // 4-1. 페이지별 상품 관리 화면 select
+    @Transactional(readOnly = true)
+    public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
 }
