@@ -3,6 +3,7 @@ package project.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import project.dto.ItemSearchDto;
+import project.dto.MainItemDto;
 import project.entity.Item;
 
 public interface ItemRepositoryCustom {
@@ -13,4 +14,5 @@ public interface ItemRepositoryCustom {
      */
     Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
 
+    Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
 }

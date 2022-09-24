@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import project.dto.ItemFormDto;
 import project.dto.ItemImgDto;
 import project.dto.ItemSearchDto;
+import project.dto.MainItemDto;
 import project.entity.Item;
 import project.entity.ItemImg;
 import project.repository.ItemImgRepository;
@@ -91,5 +92,10 @@ public class ItemService {
     @Transactional(readOnly = true)
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+        return itemRepository.getMainItemPage(itemSearchDto, pageable);
     }
 }
