@@ -101,7 +101,7 @@ public class ItemController {
     }
 
     @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
-    // 4-1. 상품 관리 화면 진입시 URL에 페이지 번호가 없는 경우와 페이지 번호가 있는 경우 2가지를 모두 매핑시킵니다.
+    // 상품 관리 화면 진입시 URL에 페이지 번호가 없는 경우와 페이지 번호가 있는 경우 2가지를 모두 매핑시킵니다.
     public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
         // 4-2. 페이징을 위해 PageRequest.of 메소드를 통해 Pagealbe 객체를 생성합니다. URL 경로에 페이지 번호가 있으면 해당 페이지를 조회하도록 세팅하고, 페이지 번호가 없으면 0페이지로 조회하도록 합니다.
         Pageable pageable = PageRequest.of(page.isPresent() ? (page.get() - 1) : 0, 5);
@@ -119,5 +119,15 @@ public class ItemController {
         model.addAttribute("maxPage", 5);
 
         return "item/itemMng";
+    }
+
+    @GetMapping(value = "/item/{itemId}") // 5-1. 상품 상세 페이지(사용자)
+    public String userItemDtl(@PathVariable("itemId") Long itemId, Model model) {
+        // 5-2. url 파라미터로 전달된 itemId로 조회해서 저장
+        ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+
+        // 5-3. 5-2로 조회한 itemFormDto객체를 item이란 이름으로 model에 담는다.
+        model.addAttribute("item", itemFormDto);
+        return "item/itemDtl";
     }
 }
