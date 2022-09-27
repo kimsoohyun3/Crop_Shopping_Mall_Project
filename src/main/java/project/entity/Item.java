@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import project.constant.ItemSellStatus;
 import project.dto.ItemFormDto;
+import project.exception.OutOfStockException;
 
 import javax.persistence.*;
 
@@ -41,5 +42,19 @@ public class Item extends BaseEntity {
         this.stockNumber = itemFormDto.getStockNumber();
         this.itemDetail = itemFormDto.getItemDetail();
         this.itemSellStatus = itemFormDto.getItemSellStatus();
+    }
+
+    // 상품 주문시 재고 감소시키는 기능
+    public void removeStock(int stockNumber) {
+        // 남은 재고 = 현재 재고 - 주문 수량
+        int restStock = this.stockNumber - stockNumber;
+
+        // 남은 재고가 0보다 작으면
+        if(restStock < 0) {
+            throw new OutOfStockException("상품의 재고가 부족합니다(현재 재고 수량 : " + this.stockNumber + ")");
+        }
+
+        // 남은 재고량으로 세팅.
+        this.stockNumber = restStock;
     }
 }
