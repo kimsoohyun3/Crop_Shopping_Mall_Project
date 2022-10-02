@@ -28,6 +28,8 @@ spring:
         show_sql: true
         #콘솔창에 출력되는 쿼리를 가독성이 좋게 포맷팅
         format_sql: true
+        #기본 batch size 설정
+        default_batch_fetch_size: 1000
     database-platform: org.hibernate.dialect.Oracle10gDialect
 
   #logging.level:
