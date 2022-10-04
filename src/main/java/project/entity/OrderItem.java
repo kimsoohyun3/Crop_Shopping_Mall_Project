@@ -48,4 +48,9 @@ public class OrderItem extends BaseEntity {
         // 2-2. 1-1에서 세팅해 놓은 걸로 총 주문 가격 구해서 리턴.
         return orderPrice * count;
     }
+
+    // 취소시 주문 아이템에 있는 count를 수를 다시 증가 시켜준다.
+    public void cancel() {
+        this.getItem().addStock(count);
+    }
 }

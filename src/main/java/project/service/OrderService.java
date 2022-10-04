@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 import project.dto.OrderDto;
 import project.dto.OrderHistDto;
 import project.dto.OrderItemDto;
@@ -93,5 +94,32 @@ public class OrderService {
         }
         // 페이지 구현객체를 생성하여 위에서 생성한 객체들을 가지고 뷰에 넘겨준다.
         return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount);
+    }
+
+    // 현재 로그인한 사용자와 주문 데이터를 생성한 사용자가 같은지 검사를 합니다.
+    @Transactional(readOnly = true)
+    public boolean validateOrder(Long orderId, String email) {
+        // 현재 로그인한 사용자를 가져옵니다.
+        Member loginMember = memberRepository.findByEmail(email);
+
+        // 주문 아이디로 주문 엔티티를 가져온다.
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+
+        // 주문 엔티티에서 해당 주문을 한 사용자를 가져온다.
+        Member savedMember = order.getMember();
+
+        // 현재 로그인한 사용자와 주문을 한 사용자가 동일한지 비교한다.
+        if(!StringUtils.equals(loginMember.getEmail(), savedMember.getEmail())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    // 주문 취소
+    public void cancelOrder(Long orderId) {
+        // 전달 받은 orderId로 주문 엔티티를 가져온다.
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        order.cancelOrder();
     }
 }
