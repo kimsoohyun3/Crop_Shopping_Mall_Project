@@ -77,7 +77,7 @@ public class Order extends BaseEntity {
         this.orderStatus = OrderStatus.CANCEL;
 
         for(OrderItem orderItem : orderItems) {
-            // 4-2. 주문 아이템들을 반복문을 돌며 취소.
+            // 주문 아이템들을 반복문을 돌며 취소.
             orderItem.cancel();
         }
     }

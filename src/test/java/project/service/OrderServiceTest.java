@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project.constant.ItemSellStatus;
+import project.constant.OrderStatus;
 import project.dto.OrderDto;
 import project.entity.Item;
 import project.entity.Member;
@@ -72,7 +73,7 @@ class OrderServiceTest {
         // 주문 서비스 실행후 주문 아이디 반환 받는다.
         Long orderId = orderService.order(orderDto, member.getEmail());
 
-        // 1-5에서 반환된 주문 아이디로 DB에서 해당 주문을 가져온다
+        // 반환된 주문 아이디로 DB에서 해당 주문을 가져온다
         Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
 
         // 주문 엔티티에 저장된 주문아이템 정보를 가지고 온다.
@@ -85,8 +86,29 @@ class OrderServiceTest {
         // 주문한 상품의 총 가격을 구한다.
         int totalPrice = orderDto.getCount() * item.getPrice();
 
-        // 1-8에서 구헌 주문한 상품의 총 가격과 데이터베이스에 저장된 상품의 총 가격을 비교하여 같으면 테스트 성공
+        // 주문한 상품의 총 가격과 데이터베이스에 저장된 상품의 총 가격을 비교하여 같으면 테스트 성공
         assertEquals(totalPrice, order.getTotalPrice());
+    }
+
+    @Test
+    @DisplayName("주문 취소 테스트")
+    public void cancelOrder() {
+        Item item = saveItem();
+        Member member = saveMember();
+
+        OrderDto orderDto = new OrderDto();
+        orderDto.setCount(10);
+        orderDto.setItemId(item.getId());
+
+        Long orderId = orderService.order(orderDto, member.getEmail());
+
+        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+
+        orderService.cancelOrder(orderId);
+
+        assertEquals(OrderStatus.CANCEL, order.getOrderStatus());
+        assertEquals(100, item.getStockNumber());
+
     }
 
 }

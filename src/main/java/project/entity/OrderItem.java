@@ -43,9 +43,9 @@ public class OrderItem extends BaseEntity {
         return orderItem;
     }
 
-    // 2-1. 총 주문 가격 계산 메소드
+    // 총 주문 가격 계산 메소드
     public int getTotalPrice() {
-        // 2-2. 1-1에서 세팅해 놓은 걸로 총 주문 가격 구해서 리턴.
+        // 세팅해 놓은 걸로 총 주문 가격 구해서 리턴.
         return orderPrice * count;
     }
 

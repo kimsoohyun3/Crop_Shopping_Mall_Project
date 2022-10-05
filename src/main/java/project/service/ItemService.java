@@ -88,7 +88,7 @@ public class ItemService {
         return item.getId();
     }
 
-    // 4-1. 페이지별 상품 관리 화면 select
+    // 페이지별 상품 관리 화면 select
     @Transactional(readOnly = true)
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
