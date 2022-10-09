@@ -3,6 +3,7 @@ package project.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 import project.dto.CartDetailDto;
 import project.dto.CartItemDto;
 import project.entity.Cart;
@@ -95,5 +96,35 @@ public class CartService {  // 장바구니에 상품을 담는 로직 수행하
 
         return cartItemDetailDtoList;
 
+    }
+
+    // 현재 로그인한 회원과 해당 장바구니 상품을 저장한 회원이 같은지 검사하는 메소드
+    @Transactional(readOnly = true)  // 성능 향상을 위해 select는 readOnly true
+    public boolean validateCartItem(Long cartItemId, String email) {
+        // 전달 받은 email로 현재 로그인한 회원을 조회
+        Member curMember = memberRepository.findByEmail(email);
+
+        // 전달 받은 cartItemId로 장바구니 아이템 조회
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
+
+        // 조회한 CartItem을 저장한 회원 가져오기
+        Member savedMember = cartItem.getCart().getMember();
+
+        // 로그인한 회원과 장바구니를 저장한 회원이 다르면 false return
+        if(!StringUtils.equals(curMember.getEmail(), savedMember.getEmail())) {
+            return false;
+        }
+
+        // 같다면  true return
+        return true;
+    }
+
+    // 장바구니에 담겨있는 상품의 수량을 업데이트 해주는 메소드
+    public void updateCartItemCount(Long cartItemId, int count) {
+        // 전달받은 cartItemId로 장바구니 아이템을 가져온다.
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
+
+        // 전달 받은 변경된 수량을 전달해 update 해준다.
+        cartItem.updateCount(count);
     }
 }
