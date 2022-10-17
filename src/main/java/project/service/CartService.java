@@ -127,4 +127,13 @@ public class CartService {  // 장바구니에 상품을 담는 로직 수행하
         // 전달 받은 변경된 수량을 전달해 update 해준다.
         cartItem.updateCount(count);
     }
+
+    // 장바구니에 담겨있는 상품을 삭제해주는 메소드
+    public void deleteCartItem(Long cartItemId) {
+        // 전달받은 cartItemId로 장바구니 아이템을 가져온다.
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow(EntityNotFoundException::new);
+
+        // 해당 아이템을 삭제
+        cartItemRepository.delete(cartItem);
+    }
 }
