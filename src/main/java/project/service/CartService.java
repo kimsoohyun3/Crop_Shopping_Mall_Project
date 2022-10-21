@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 import project.dto.CartDetailDto;
 import project.dto.CartItemDto;
+import project.dto.CartOrderDto;
+import project.dto.OrderDto;
 import project.entity.Cart;
 import project.entity.CartItem;
 import project.entity.Item;
@@ -135,5 +137,32 @@ public class CartService {  // 장바구니에 상품을 담는 로직 수행하
 
         // 해당 아이템을 삭제
         cartItemRepository.delete(cartItem);
+    }
+
+    // 장바구니에 담긴 상품을 주문 해주는 메소드
+    public Long orderCartItem(List<CartOrderDto> cartOrderDtoList, String email) {
+        List<OrderDto> orderDtoList = new ArrayList<>();
+
+        // 장바구니 페이지에서 전달받은 주문 상품 번호를 이용하여 주문 로직으로 전달할 orderDto 객체를 만든다.
+        for(CartOrderDto cartOrderDto : cartOrderDtoList) {
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(EntityNotFoundException::new);
+
+            OrderDto orderDto = new OrderDto();
+            orderDto.setItemId(cartItem.getItem().getId());
+            orderDto.setCount(cartItem.getCount());
+
+            orderDtoList.add(orderDto);
+        }
+
+        // 장바구니에 담은 상품을 주문하도록 주문 로직을 호출한다.
+        Long orderId = orderService.orders(orderDtoList, email);
+
+        // 주문한 상품을 장바구니에서 제거한다.
+        for(CartOrderDto cartOrderDto : cartOrderDtoList) {
+            CartItem cartItem = cartItemRepository.findById(cartOrderDto.getCartItemId()).orElseThrow(EntityNotFoundException::new);
+            cartItemRepository.delete(cartItem);
+        }
+
+        return orderId;
     }
 }
