@@ -14,6 +14,12 @@
 - JavaScript, jQuery, HTML5, CSS
 
 <br/>
+<br/>
+
+<img width="500" alt="스크린샷 2023-06-21 오후 8 47 56" src="https://github.com/kimsoohyun3/Development_Lesson_Project/assets/127597074/1f8d5f53-4ebb-429e-9620-923b81d08020">
+
+<br/>
+<br/>
 
 ## 🖥 기능
 - 회원가입, 로그인, 로그아웃 구현
