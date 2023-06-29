@@ -10,10 +10,8 @@
 - Java
 - Spring Boot
 - JPA
-- JavaScript
-- jQuery
-- HTML5
-- CSS
+- Thymeleaf
+- JavaScript, jQuery, HTML5, CSS
 
 <br/>
 
